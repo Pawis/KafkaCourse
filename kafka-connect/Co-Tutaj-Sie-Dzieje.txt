@@ -1,0 +1,5 @@
+Ogolnie to tak
+Kafka Connect moze zastapic producera poprzez polaczenie sie z zrodlem
+Zeby to osiagnac musimy pobrac odpowiedni connector do zrodla badz sinku czyli odbiorcy
+nastepnie przeniesc folder z bibliotekami do eclipse, dodac do connect-statndalone.sh plugin.path=(nazwe folderu z bibliotekami)
+Uruchamia sie poprzez connect-standalone.sh connect-standalone.properties twitter.properties
