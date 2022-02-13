@@ -60,6 +60,7 @@ public class TwitterProducer {
 		
 		/*
 		* Jakiej odpowiedzi oczekuje producent 0-zadnej 1-tylko leader all-leader+repliki
+		* Jesli acks=all musimy rowniez ustawic w konfiguracji tematu min.insync.replicas (preferowane 3 max 4)
 		* properties.setProperty(ProducerConfig.ACKS_CONFIG, 0/1/all);
 		*/
 		
