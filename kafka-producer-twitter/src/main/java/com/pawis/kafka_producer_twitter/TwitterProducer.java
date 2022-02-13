@@ -54,13 +54,18 @@ public class TwitterProducer {
 	public KafkaProducer<String,String> createKafkaProducer() {
 
 		Properties properties = new Properties();
+		// Najlepiej dodac wszsytkie brookery na wypadek jesli ktorys padnie to polaczymy sie z nastepnym 
+		// bootstrapServer = "localhost:9092,localhost:9093,localhost:9094"
 		properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
 		properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, keySerializer);
 		properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, valueSerializer);
 		
 		/*
 		* Jakiej odpowiedzi oczekuje producent 0-zadnej 1-tylko leader all-leader+repliki
-		* Jesli acks=all musimy rowniez ustawic w konfiguracji tematu min.insync.replicas (preferowane 3 max 4)
+		* Jesli acks=all musimy rowniez ustawic w konfiguracji tematu min.insync.replicas (preferowane 3 max 4, 3 to znaczy 1 leader + 2 repliki) 
+		* oraz replication.factor nie mniejsze niz min.insync.replicas 
+		* Mozemy ustawic globalne min.insync.replicas w server.properties na wszsytkie tematy w brookerze
+		* 
 		* properties.setProperty(ProducerConfig.ACKS_CONFIG, 0/1/all);
 		*/
 		
@@ -82,6 +87,7 @@ public class TwitterProducer {
 		 * 
 		 * Wielkosc buffera - domyslnie 32MB, po zapelmnieniu send() jest blokowany.
 		 * Jesli mamy duzo partycji mzoemy go zwiekszyc
+		 * 
 		 * properties.setProperty(ProducerConfig.BUFFER_MEMORY_CONFIG, "32"); 
 		 */
 
